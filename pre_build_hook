@@ -3,3 +3,12 @@
 # Add here any the actions which are required before plugin build
 # like packages building, packages downloading from mirrors and so on.
 # The script should return 0 if there were no errors.
+rm repositories/ubuntu/* || true
+cd repositories/python
+git submodule update
+cd nova-docker; git checkout stable/mitaka; cd ..
+fpm -v "1:0.0.1" -s python -t deb -n fuel-plugin-nova-docker \
+  --python-install-bin /usr/bin \
+  --python-install-lib /usr/lib/python2.7/dist-packages/ \
+  nova-docker/setup.py
+mv *.deb ../ubuntu
