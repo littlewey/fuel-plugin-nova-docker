@@ -1,1 +1,17 @@
-# cleanup
+# If you do not want to use task-based deployment that is introduced as experimental
+# in fuel v8.0 comment code section below this comment, uncomment two lines below it
+# and do the same for tasks below.
+
+- id: nova_docker-install
+  type: puppet
+  version: 2.0.0
+  role: [compute]
+  requires: [post_deployment_start]
+  required_for: [post_deployment_end]
+  parameters:
+    puppet_manifest: puppet/manifests/install.pp
+    puppet_modules: puppet/modules
+    timeout: 600
+    retries: 3
+    interval: 20
+    timeout: 180
