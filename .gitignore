@@ -2,3 +2,4 @@
 .build
 *.pyc
 repositories/ubuntu/fuel-plugin-nova-docker*.deb
+*.rpm
