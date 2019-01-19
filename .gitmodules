@@ -1,0 +1,3 @@
+[submodule "repositories/python/nova-docker"]
+	path = repositories/python/nova-docker
+	url = git@github.com:openstack/nova-docker.git
