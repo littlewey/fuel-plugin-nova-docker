@@ -10,8 +10,23 @@
   required_for: [post_deployment_end]
   parameters:
     puppet_manifest: puppet/manifests/install.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
     retries: 3
     interval: 20
-    timeout: 180
+
+- id: nova_docker-configure
+  type: puppet
+  version: 2.0.0
+  role: [primary-controller, controller, compute]
+  requires: [post_deployment_start, nova_docker-install]
+  cross-depends:
+    - name: nova_docker-install
+      role: [primary-controller, controller, compute]
+  required_for: [post_deployment_end]
+  parameters:
+    puppet_manifest: puppet/manifests/configure.pp
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    retries: 3
+    interval: 20
+    timeout: 600
